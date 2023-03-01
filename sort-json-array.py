@@ -10,14 +10,12 @@ def main():
 
     data = json.load(f)
 
-    # for i in data:
-    #     print(i)
-
     sorted_data = sorted(data, key=operator.itemgetter("DBDF"))
 
-    print(json.dumps(sorted_data))
+    print(json.dumps(sorted_data, indent=4))
 
     f.close()
+
 
 if __name__ == "__main__":
     main()
