@@ -14,7 +14,7 @@ int main()
     pci_scan_bus(pacc);
 
     printf("[\n");
-    for (dev = pacc->devices; dev; dev = dev->next)
+    for (dev = pacc->devices; NULL != dev; dev = dev->next)
     {
         pci_fill_info(dev, PCI_FILL_IDENT | PCI_FILL_BASES | PCI_FILL_CLASS | PCI_FILL_PHYS_SLOT);
 
@@ -34,7 +34,10 @@ int main()
         name = pci_lookup_name(pacc, namebuf, sizeof(namebuf), PCI_LOOKUP_CLASS, dev->device_class);
         printf("\"Class\":\"%s\"", name);
 
-        printf("},\n");
+        if (NULL == dev->next)
+            printf("}\n");
+        else
+            printf("},\n");
     }
     printf("]\n");
     pci_cleanup(pacc);
